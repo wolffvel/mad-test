@@ -1,7 +1,52 @@
 .user-card-container {
+  display: flex;
+  flex-direction: column;
   min-height: 400px;
   width: 80%;
-  max-width: 450px;
+  max-width: 350px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.user-card-header {
+  flex: 1;
+  background-color: #406dfe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-card-picture {
+  position: absolute;
+  transform: translateY(80px);
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  border: solid 4px #fff;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.user-card-title {
+  color: #fff;
+  padding-top: 1.5rem;
+}
+
+.user-card-body {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card-body-spacer {
+  flex: 1;
+}
+
+.user-card-body-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
