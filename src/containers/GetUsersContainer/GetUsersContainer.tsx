@@ -47,7 +47,7 @@ const GetUsersContainer: React.FC = () => {
         return (
           <UserCard
             key={index}
-            title={`${user.name.title} ${user.name.first} ${user.name.last}`}
+            title={`${user.name.first} ${user.name.last}`}
             imgURL={user.picture.large}
             mail={user.email}
             location={`${user.location.city}, ${user.location.country}`}
