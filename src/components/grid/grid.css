@@ -12,8 +12,9 @@
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 1360px) {
+@media screen and (min-width: 1024px) {
   .grid {
     flex-direction: row;
+    justify-content: space-around;
   }
 }
