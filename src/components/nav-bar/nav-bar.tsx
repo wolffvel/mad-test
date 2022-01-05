@@ -36,6 +36,7 @@ const Navbar: React.FC = () => {
             <option value="phone">Phone</option>
             <option value="location">Location</option>
           </select>
+          <button className="nav-search-button">Filter</button>
         </div>
       </div>
     </nav>
