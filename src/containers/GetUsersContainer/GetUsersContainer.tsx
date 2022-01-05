@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import Spinner from '../../components/spinner'
 import UserCard from '../../components/user-card'
 import Grid from '../../components/grid'
-
-interface User {
-  name: {
-    title: string
-    first: string
-    last: string
-  }
-  picture: { large: string }
-  phone: string
-  location: { city: string; state: string; country: string }
-  email: string
-}
+import { UserContext } from '../../providers/users-provider'
 
 const GetUsersContainer: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([])
+  const { users, setUsers } = useContext(UserContext)
   const [status, setSatus] = useState('loading')
 
   useEffect(() => {
