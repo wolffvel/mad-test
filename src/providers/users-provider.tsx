@@ -34,6 +34,21 @@ export const UsersContextProvider: React.FC = ({ children }) => {
       case 'lastName':
         setUsers(users.filter((user) => user.name.last.includes(input)))
         break
+      case 'email':
+        setUsers(users.filter((user) => user.email.includes(input)))
+        break
+      case 'phone':
+        setUsers(users.filter((user) => user.phone.includes(input)))
+        break
+      case 'location':
+        setUsers(
+          users.filter(
+            (user) =>
+              user.location.city.includes(input) ||
+              user.location.country.includes(input)
+          )
+        )
+        break
     }
   }
   return (

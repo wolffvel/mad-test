@@ -3,7 +3,7 @@ import './nav-bar.css'
 import { UserContext } from '../../providers/users-provider'
 
 const Navbar: React.FC = () => {
-  const [options, toggleOptions] = useState(true)
+  const [options, toggleOptions] = useState(false)
   const [filterOption, setFilterOption] = useState('name')
   const [filterInput, setFilterInput] = useState('')
   const { filterUsers } = useContext(UserContext)
