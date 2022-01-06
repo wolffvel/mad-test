@@ -30,6 +30,10 @@ export const UsersContextProvider: React.FC = ({ children }) => {
     switch (option) {
       case 'name':
         setUsers(users.filter((user) => user.name.first.includes(input)))
+        break
+      case 'lastName':
+        setUsers(users.filter((user) => user.name.last.includes(input)))
+        break
     }
   }
   return (

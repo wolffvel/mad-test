@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
           />
           <label htmlFor="filterOptions">Filter by:</label>
           <select
-            value={filterOption}
+            defaultValue={filterOption}
             onChange={(e) => setFilterOption(e.target.value)}
             className="nav-mobile-filter-input"
           >
