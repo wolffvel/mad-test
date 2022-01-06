@@ -44,6 +44,7 @@ const GetUsersContainer: React.FC = () => {
           />
         )
       })}
+      {users.length === 0 && <p>No Results</p>}
     </Grid>
   )
 }
