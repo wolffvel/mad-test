@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import Spinner from '../../components/spinner'
 import UserCard from '../../components/user-card'
 import Grid from '../../components/grid'
-
-interface User {
-  name: {
-    title: string
-    first: string
-    last: string
-  }
-  picture: { large: string }
-  phone: string
-  location: { city: string; state: string; country: string }
-  email: string
-}
+import { UserContext } from '../../providers/users-provider'
 
 const GetUsersContainer: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([])
+  const { users, setUsers, setDefaultUsers } = useContext(UserContext)
   const [status, setSatus] = useState('loading')
 
   useEffect(() => {
@@ -25,10 +14,11 @@ const GetUsersContainer: React.FC = () => {
       try {
         const result = await axios.get('https://randomuser.me/api/', {
           params: {
-            results: 30,
+            results: 50,
           },
         })
         setUsers(result.data.results)
+        setDefaultUsers(result.data.results)
         setSatus('ok')
       } catch (err) {
         console.log(err)
@@ -55,6 +45,7 @@ const GetUsersContainer: React.FC = () => {
           />
         )
       })}
+      {users.length === 0 && <p>No Results</p>}
     </Grid>
   )
 }
