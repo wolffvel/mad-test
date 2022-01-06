@@ -69,6 +69,15 @@
   margin: 1rem 0 1rem 0;
 }
 
+.nav-clear-mobile-button {
+  color: #406dfe;
+  background-color: #fff;
+  padding: 0.8rem;
+  border: 1px solid #406dfe;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
 .nav-mobile-options-hidden {
   display: none;
 }

@@ -52,6 +52,7 @@ const Navbar: React.FC = () => {
           >
             Filter
           </button>
+          <button className="nav-clear-mobile-button">Clear</button>
         </div>
       </div>
     </nav>
