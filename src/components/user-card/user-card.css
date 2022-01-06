@@ -17,6 +17,26 @@
   align-items: center;
 }
 
+.user-card-edit-container {
+  width: 100%;
+  background-color: transparent;
+  text-align: left;
+}
+
+.user-card-edit {
+  color: #fff;
+  left: 0;
+  transform: translate(10px, 10px);
+  cursor: pointer;
+}
+
+.user-card-edit-done {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 0.75rem;
+}
+
 .user-card-picture {
   position: absolute;
   transform: translateY(80px);
@@ -30,7 +50,6 @@
 
 .user-card-title {
   color: #fff;
-  padding-top: 1.5rem;
 }
 
 .user-card-body {
