@@ -15,6 +15,49 @@ const Navbar: React.FC = () => {
   return (
     <nav className="nav-container">
       <div className="nav-controls">
+        <div className="nav-desktop-options">
+          <div>
+            <label htmlFor="userFilter">Filter users:</label>
+            <input
+              className="nav-filter-input"
+              id="userFilter"
+              type="text"
+              placeholder="Filter users"
+              value={filterInput}
+              onChange={(e) => setFilterInput(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="filterOptions">Filter by:</label>
+            <select
+              defaultValue={filterOption}
+              onChange={(e) => setFilterOption(e.target.value)}
+              className="nav-filter-input"
+            >
+              <option value="name">Name</option>
+              <option value="lastName">Last Name</option>
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="location">Location</option>
+            </select>
+          </div>
+          <div>
+            <button
+              onClick={() => filterUsers(filterOption, filterInput)}
+              className="nav-search-button"
+            >
+              Filter
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => setUsers(defaultUsers)}
+              className="nav-clear-button"
+            >
+              Clear
+            </button>
+          </div>
+        </div>
         <button className="nav-button" onClick={onBurgerButtonPress}>
           <span></span>
           <span></span>
@@ -27,7 +70,7 @@ const Navbar: React.FC = () => {
         <div className="nav-mobile-options-container">
           <label htmlFor="userFilter">Filter users:</label>
           <input
-            className="nav-mobile-filter-input"
+            className="nav-filter-input"
             id="userFilter"
             type="text"
             placeholder="Filter users"
@@ -38,7 +81,7 @@ const Navbar: React.FC = () => {
           <select
             defaultValue={filterOption}
             onChange={(e) => setFilterOption(e.target.value)}
-            className="nav-mobile-filter-input"
+            className="nav-filter-input"
           >
             <option value="name">Name</option>
             <option value="lastName">Last Name</option>
@@ -54,7 +97,7 @@ const Navbar: React.FC = () => {
           </button>
           <button
             onClick={() => setUsers(defaultUsers)}
-            className="nav-clear-mobile-button"
+            className="nav-clear-button"
           >
             Clear
           </button>
