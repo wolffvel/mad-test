@@ -14,7 +14,7 @@ const GetUsersContainer: React.FC = () => {
       try {
         const result = await axios.get('https://randomuser.me/api/', {
           params: {
-            results: 30,
+            results: 50,
           },
         })
         setUsers(result.data.results)

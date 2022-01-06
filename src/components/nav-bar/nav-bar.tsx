@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import './nav-bar.css'
+import { UserContext } from '../../providers/users-provider'
 
 const Navbar: React.FC = () => {
   const [options, toggleOptions] = useState(true)
+  const [filterOption, setFilterOption] = useState('name')
+  const [filterInput, setFilterInput] = useState('')
+  const { filterUsers } = useContext(UserContext)
 
   const onBurgerButtonPress = () => {
     toggleOptions(!options)
@@ -27,16 +31,27 @@ const Navbar: React.FC = () => {
             id="userFilter"
             type="text"
             placeholder="Filter users"
+            value={filterInput}
+            onChange={(e) => setFilterInput(e.target.value)}
           />
           <label htmlFor="filterOptions">Filter by:</label>
-          <select className="nav-mobile-filter-input">
+          <select
+            value={filterOption}
+            onChange={(e) => setFilterOption(e.target.value)}
+            className="nav-mobile-filter-input"
+          >
             <option value="name">Name</option>
             <option value="lastName">Last Name</option>
             <option value="email">Email</option>
             <option value="phone">Phone</option>
             <option value="location">Location</option>
           </select>
-          <button className="nav-search-button">Filter</button>
+          <button
+            onClick={() => filterUsers(filterOption, filterInput)}
+            className="nav-search-button"
+          >
+            Filter
+          </button>
         </div>
       </div>
     </nav>
