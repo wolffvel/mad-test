@@ -16,16 +16,21 @@ interface UserContextProps {
   users: User[]
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
   filterUsers: (option: string, input: string) => void
+  defaultUsers: User[]
+  setDefaultUsers: React.Dispatch<React.SetStateAction<User[]>>
 }
 
 export const UserContext = createContext<UserContextProps>({
   users: [],
   setUsers: () => null,
   filterUsers: () => null,
+  defaultUsers: [],
+  setDefaultUsers: () => null,
 })
 
 export const UsersContextProvider: React.FC = ({ children }) => {
   const [users, setUsers] = useState<User[]>([])
+  const [defaultUsers, setDefaultUsers] = useState<User[]>([])
   const filterUsers = (option: string, input: string) => {
     switch (option) {
       case 'name':
@@ -52,7 +57,9 @@ export const UsersContextProvider: React.FC = ({ children }) => {
     }
   }
   return (
-    <UserContext.Provider value={{ users, setUsers, filterUsers }}>
+    <UserContext.Provider
+      value={{ users, setUsers, filterUsers, defaultUsers, setDefaultUsers }}
+    >
       {children}
     </UserContext.Provider>
   )

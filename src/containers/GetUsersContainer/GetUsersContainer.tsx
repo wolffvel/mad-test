@@ -6,7 +6,7 @@ import Grid from '../../components/grid'
 import { UserContext } from '../../providers/users-provider'
 
 const GetUsersContainer: React.FC = () => {
-  const { users, setUsers } = useContext(UserContext)
+  const { users, setUsers, setDefaultUsers } = useContext(UserContext)
   const [status, setSatus] = useState('loading')
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const GetUsersContainer: React.FC = () => {
           },
         })
         setUsers(result.data.results)
+        setDefaultUsers(result.data.results)
         setSatus('ok')
       } catch (err) {
         console.log(err)
