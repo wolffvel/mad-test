@@ -16,37 +16,39 @@ interface UserContextProps {
   users: User[]
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
   filterUsers: (option: string, input: string) => void
-  defaultUsers: User[]
-  setDefaultUsers: React.Dispatch<React.SetStateAction<User[]>>
+  filteredUsers: User[]
+  setFilteredUsers: React.Dispatch<React.SetStateAction<User[]>>
 }
 
 export const UserContext = createContext<UserContextProps>({
   users: [],
   setUsers: () => null,
   filterUsers: () => null,
-  defaultUsers: [],
-  setDefaultUsers: () => null,
+  filteredUsers: [],
+  setFilteredUsers: () => null,
 })
 
 export const UsersContextProvider: React.FC = ({ children }) => {
   const [users, setUsers] = useState<User[]>([])
-  const [defaultUsers, setDefaultUsers] = useState<User[]>([])
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([])
   const filterUsers = (option: string, input: string) => {
     switch (option) {
       case 'name':
-        setUsers(users.filter((user) => user.name.first.includes(input)))
+        setFilteredUsers(
+          users.filter((user) => user.name.first.includes(input))
+        )
         break
       case 'lastName':
-        setUsers(users.filter((user) => user.name.last.includes(input)))
+        setFilteredUsers(users.filter((user) => user.name.last.includes(input)))
         break
       case 'email':
-        setUsers(users.filter((user) => user.email.includes(input)))
+        setFilteredUsers(users.filter((user) => user.email.includes(input)))
         break
       case 'phone':
-        setUsers(users.filter((user) => user.phone.includes(input)))
+        setFilteredUsers(users.filter((user) => user.phone.includes(input)))
         break
       case 'location':
-        setUsers(
+        setFilteredUsers(
           users.filter(
             (user) =>
               user.location.city.includes(input) ||
@@ -58,7 +60,7 @@ export const UsersContextProvider: React.FC = ({ children }) => {
   }
   return (
     <UserContext.Provider
-      value={{ users, setUsers, filterUsers, defaultUsers, setDefaultUsers }}
+      value={{ users, setUsers, filterUsers, filteredUsers, setFilteredUsers }}
     >
       {children}
     </UserContext.Provider>

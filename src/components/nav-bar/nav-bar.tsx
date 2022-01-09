@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   const [options, toggleOptions] = useState(false)
   const [filterOption, setFilterOption] = useState('name')
   const [filterInput, setFilterInput] = useState('')
-  const { filterUsers, defaultUsers, setUsers } = useContext(UserContext)
+  const { filterUsers, setFilteredUsers } = useContext(UserContext)
 
   const onBurgerButtonPress = () => {
     toggleOptions(!options)
@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
           </div>
           <div>
             <button
-              onClick={() => setUsers(defaultUsers)}
+              onClick={() => setFilteredUsers([])}
               className="nav-clear-button"
             >
               Clear
@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
             Filter
           </button>
           <button
-            onClick={() => setUsers(defaultUsers)}
+            onClick={() => setFilteredUsers([])}
             className="nav-clear-button"
           >
             Clear

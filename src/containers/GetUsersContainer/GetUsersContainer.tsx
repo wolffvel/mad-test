@@ -6,7 +6,8 @@ import Grid from '../../components/grid'
 import { UserContext } from '../../providers/users-provider'
 
 const GetUsersContainer: React.FC = () => {
-  const { users, setUsers, setDefaultUsers } = useContext(UserContext)
+  console.log('render')
+  const { users, setUsers, filteredUsers } = useContext(UserContext)
   const [status, setSatus] = useState('loading')
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const GetUsersContainer: React.FC = () => {
           },
         })
         setUsers(result.data.results)
-        setDefaultUsers(result.data.results)
         setSatus('ok')
       } catch (err) {
         console.log(err)
@@ -33,18 +33,32 @@ const GetUsersContainer: React.FC = () => {
 
   return (
     <Grid>
-      {users.map((user, index) => {
-        return (
-          <UserCard
-            key={index}
-            title={`${user.name.first} ${user.name.last}`}
-            imgURL={user.picture.large}
-            mail={user.email}
-            location={`${user.location.city}, ${user.location.country}`}
-            phone={user.phone}
-          />
-        )
-      })}
+      {filteredUsers.length === 0 &&
+        users.map((user, index) => {
+          return (
+            <UserCard
+              key={index}
+              title={`${user.name.first} ${user.name.last}`}
+              imgURL={user.picture.large}
+              mail={user.email}
+              location={`${user.location.city}, ${user.location.country}`}
+              phone={user.phone}
+            />
+          )
+        })}
+      {filteredUsers.length > 0 &&
+        filteredUsers.map((user, index) => {
+          return (
+            <UserCard
+              key={index}
+              title={`${user.name.first} ${user.name.last}`}
+              imgURL={user.picture.large}
+              mail={user.email}
+              location={`${user.location.city}, ${user.location.country}`}
+              phone={user.phone}
+            />
+          )
+        })}
       {users.length === 0 && <p>No Results</p>}
     </Grid>
   )
