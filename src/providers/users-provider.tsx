@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react'
 
-interface User {
+export interface User {
   name: {
     title: string
     first: string
