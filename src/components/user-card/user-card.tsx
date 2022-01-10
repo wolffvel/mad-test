@@ -34,7 +34,7 @@ const UserCard: React.FC<UserCardProps> = ({
             <FaUserEdit
               onClick={() => toggleEditFields(true)}
               className="user-card-edit"
-              size="1.5rem"
+              size="24px"
             />
           )}
           {editFields && (

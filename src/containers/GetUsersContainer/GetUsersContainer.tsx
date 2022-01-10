@@ -1,65 +1,48 @@
-import React, { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
+import React, { useEffect, useContext } from 'react'
 import Spinner from '../../components/spinner'
 import UserCard from '../../components/user-card'
 import Grid from '../../components/grid'
-import { UserContext } from '../../providers/users-provider'
+import { UserContext, User } from '../../providers/users-provider'
+import useFetch from '../../hooks/use-fetch'
+
+interface UsersResponse {
+  results: User[]
+}
 
 const GetUsersContainer: React.FC = () => {
-  console.log('render')
-  const { users, setUsers, filteredUsers } = useContext(UserContext)
-  const [status, setSatus] = useState('loading')
+  const { response, isLoading, error } = useFetch<UsersResponse>(
+    'https://randomuser.me/api/',
+    { results: 50 }
+  )
+  const { setUsers, filteredUsers, setFilteredUsers } = useContext(UserContext)
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const result = await axios.get('https://randomuser.me/api/', {
-          params: {
-            results: 50,
-          },
-        })
-        setUsers(result.data.results)
-        setSatus('ok')
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    fetchUsers()
-  }, [])
+    setUsers(response?.results as User[])
+    setFilteredUsers(response?.results as User[])
+  }, [response])
 
-  if (status === 'loading') {
+  if (isLoading) {
     return <Spinner />
   }
 
   return (
     <Grid>
-      {filteredUsers.length === 0 &&
-        users.map((user, index) => {
-          return (
-            <UserCard
-              key={index}
-              title={`${user.name.first} ${user.name.last}`}
-              imgURL={user.picture.large}
-              mail={user.email}
-              location={`${user.location.city}, ${user.location.country}`}
-              phone={user.phone}
-            />
-          )
-        })}
-      {filteredUsers.length > 0 &&
-        filteredUsers.map((user, index) => {
-          return (
-            <UserCard
-              key={index}
-              title={`${user.name.first} ${user.name.last}`}
-              imgURL={user.picture.large}
-              mail={user.email}
-              location={`${user.location.city}, ${user.location.country}`}
-              phone={user.phone}
-            />
-          )
-        })}
-      {users.length === 0 && <p>No Results</p>}
+      {filteredUsers.map((user) => {
+        return (
+          <UserCard
+            key={user.email}
+            title={`${user.name.first} ${user.name.last}`}
+            imgURL={user.picture.large}
+            mail={user.email}
+            location={`${user.location.city}, ${user.location.country}`}
+            phone={user.phone}
+          />
+        )
+      })}
+      {filteredUsers.length === 0 && <p>No Results</p>}
+      {error && (
+        <p>There was an error with your request, please try again later</p>
+      )}
     </Grid>
   )
 }

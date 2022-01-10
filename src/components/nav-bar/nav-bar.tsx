@@ -1,15 +1,45 @@
 import React, { useState, useContext } from 'react'
 import './nav-bar.css'
 import { UserContext } from '../../providers/users-provider'
+import { AiOutlineSortAscending, AiOutlineSortDescending } from 'react-icons/ai'
 
 const Navbar: React.FC = () => {
   const [options, toggleOptions] = useState(false)
   const [filterOption, setFilterOption] = useState('name')
   const [filterInput, setFilterInput] = useState('')
-  const { filterUsers, setFilteredUsers } = useContext(UserContext)
+  const [sortOption, setSortOption] = useState('name')
+  const [ascending, toggleAscending] = useState(true)
+  const { users, filterUsers, setFilteredUsers, sortUsers } =
+    useContext(UserContext)
 
   const onBurgerButtonPress = () => {
     toggleOptions(!options)
+  }
+
+  const onFilterInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterInput(e.target.value)
+    if (e.target.value.length > 0) {
+      filterUsers(filterOption, e.target.value)
+    } else {
+      setFilteredUsers(users)
+    }
+  }
+
+  const onFilterOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterOption(e.target.value)
+    if (filterInput.length > 0) {
+      filterUsers(e.target.value, filterInput)
+    }
+  }
+
+  const onSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOption(e.target.value)
+    sortUsers(e.target.value, ascending)
+  }
+
+  const onAscendingToggle = () => {
+    sortUsers(sortOption, !ascending)
+    toggleAscending(!ascending)
   }
 
   return (
@@ -24,14 +54,14 @@ const Navbar: React.FC = () => {
               type="text"
               placeholder="Filter users"
               value={filterInput}
-              onChange={(e) => setFilterInput(e.target.value)}
+              onChange={onFilterInputChange}
             />
           </div>
           <div>
             <label htmlFor="filterOptions">Filter by:</label>
             <select
               defaultValue={filterOption}
-              onChange={(e) => setFilterOption(e.target.value)}
+              onChange={onFilterOptionChange}
               className="nav-filter-input"
             >
               <option value="name">Name</option>
@@ -41,21 +71,33 @@ const Navbar: React.FC = () => {
               <option value="location">Location</option>
             </select>
           </div>
-          <div>
-            <button
-              onClick={() => filterUsers(filterOption, filterInput)}
-              className="nav-search-button"
+          <div className="nav-sort-container">
+            <label htmlFor="filterOptions">Sort by:</label>
+            <select
+              defaultValue={sortOption}
+              onChange={onSortChange}
+              className="nav-filter-input"
             >
-              Filter
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => setFilteredUsers([])}
-              className="nav-clear-button"
-            >
-              Clear
-            </button>
+              <option value="name">Name</option>
+              <option value="lastName">Last Name</option>
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="location">Location</option>
+            </select>
+            {ascending && (
+              <AiOutlineSortAscending
+                className="nav-sort-button"
+                onClick={onAscendingToggle}
+                size="24px"
+              />
+            )}
+            {!ascending && (
+              <AiOutlineSortDescending
+                className="nav-sort-button"
+                onClick={onAscendingToggle}
+                size="24px"
+              />
+            )}
           </div>
         </div>
         <button className="nav-button" onClick={onBurgerButtonPress}>
@@ -75,12 +117,12 @@ const Navbar: React.FC = () => {
             type="text"
             placeholder="Filter users"
             value={filterInput}
-            onChange={(e) => setFilterInput(e.target.value)}
+            onChange={onFilterInputChange}
           />
           <label htmlFor="filterOptions">Filter by:</label>
           <select
             defaultValue={filterOption}
-            onChange={(e) => setFilterOption(e.target.value)}
+            onChange={onFilterOptionChange}
             className="nav-filter-input"
           >
             <option value="name">Name</option>
@@ -89,18 +131,34 @@ const Navbar: React.FC = () => {
             <option value="phone">Phone</option>
             <option value="location">Location</option>
           </select>
-          <button
-            onClick={() => filterUsers(filterOption, filterInput)}
-            className="nav-search-button"
-          >
-            Filter
-          </button>
-          <button
-            onClick={() => setFilteredUsers([])}
-            className="nav-clear-button"
-          >
-            Clear
-          </button>
+          <label htmlFor="filterOptions">Sort by:</label>
+          <div className="nav-sort-container">
+            <select
+              defaultValue={sortOption}
+              onChange={onSortChange}
+              className="nav-filter-input nav-sort-input"
+            >
+              <option value="name">Name</option>
+              <option value="lastName">Last Name</option>
+              <option value="email">Email</option>
+              <option value="phone">Phone</option>
+              <option value="location">Location</option>
+            </select>
+            {ascending && (
+              <AiOutlineSortAscending
+                className="nav-sort-button"
+                onClick={onAscendingToggle}
+                size="24px"
+              />
+            )}
+            {!ascending && (
+              <AiOutlineSortDescending
+                className="nav-sort-button"
+                onClick={onAscendingToggle}
+                size="24px"
+              />
+            )}
+          </div>
         </div>
       </div>
     </nav>
