@@ -85,6 +85,19 @@
 .nav-desktop-options {
   display: none;
 }
+.nav-sort-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.nav-sort-input {
+  width: 90%;
+}
+.nav-sort-button {
+  cursor: pointer;
+}
 
 @media screen and (min-width: 1024px) {
   .nav-controls {
@@ -117,5 +130,14 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+  .nav-sort-container {
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+  .nav-sort-button {
+    margin-left: 1rem;
   }
 }
