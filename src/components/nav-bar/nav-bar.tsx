@@ -12,6 +12,22 @@ const Navbar: React.FC = () => {
     toggleOptions(!options)
   }
 
+  const onFilterInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilterInput(e.target.value)
+    if (e.target.value.length > 0) {
+      filterUsers(filterOption, e.target.value)
+    } else {
+      setFilteredUsers([])
+    }
+  }
+
+  const onFilterOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilterOption(e.target.value)
+    if (filterInput.length > 0) {
+      filterUsers(e.target.value, filterInput)
+    }
+  }
+
   return (
     <nav className="nav-container">
       <div className="nav-controls">
@@ -24,14 +40,14 @@ const Navbar: React.FC = () => {
               type="text"
               placeholder="Filter users"
               value={filterInput}
-              onChange={(e) => setFilterInput(e.target.value)}
+              onChange={onFilterInputChange}
             />
           </div>
           <div>
             <label htmlFor="filterOptions">Filter by:</label>
             <select
               defaultValue={filterOption}
-              onChange={(e) => setFilterOption(e.target.value)}
+              onChange={onFilterOptionChange}
               className="nav-filter-input"
             >
               <option value="name">Name</option>
@@ -75,12 +91,12 @@ const Navbar: React.FC = () => {
             type="text"
             placeholder="Filter users"
             value={filterInput}
-            onChange={(e) => setFilterInput(e.target.value)}
+            onChange={onFilterInputChange}
           />
           <label htmlFor="filterOptions">Filter by:</label>
           <select
             defaultValue={filterOption}
-            onChange={(e) => setFilterOption(e.target.value)}
+            onChange={onFilterOptionChange}
             className="nav-filter-input"
           >
             <option value="name">Name</option>
